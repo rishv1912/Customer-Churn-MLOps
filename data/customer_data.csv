@@ -1,4 +1,4 @@
-"recordID","state","account_length","area_code","international_plan","voice_mail_plan","number_vmail_messages","total_day_minutes","total_day_calls","total_day_charge","total_eve_minutes","total_eve_calls","total_eve_charge","total_night_minutes","total_night_calls","total_night_charge","total_intl_minutes","total_intl_calls","total_intl_charge","number_customer_service_calls","churn","customer_id"
+ "recordID","state","account_length","area_code","international_plan","voice_mail_plan","number_vmail_messages","total_day_minutes","total_day_calls","total_day_charge","total_eve_minutes","total_eve_calls","total_eve_charge","total_night_minutes","total_night_calls","total_night_charge","total_intl_minutes","total_intl_calls","total_intl_charge","number_customer_service_calls","churn","customer_id"
 "1","HI",101,"510","no","no",0,70.9,123,12.05,211.9,73,18.01,236,73,10.62,10.6,3,2.86,3,"no",23383607
 "2","MT",137,"510","no","no",0,223.6,86,38.01,244.8,139,20.81,94.2,81,4.24,9.5,7,2.57,0,"no",22550362
 "3","OH",103,"408","no","yes",29,294.7,95,50.1,237.3,105,20.17,300.3,127,13.51,13.7,6,3.7,1,"no",59063354

@@ -9,3 +9,4 @@ from typing import Union
 
 class DataStrategy(ABC):
     pass
+
