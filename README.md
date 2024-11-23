@@ -1,6 +1,19 @@
 # End to End Customer Churn Project
 This Project is for detecting Customer Churn using their past records and service provided.
 
+## Table of content
+1. [Projeect Objective](#project-objective)
+2. 
+3. 
+4. 
+5. 
+6. 
+
+
+
+## Problem Statement
+
+## Project Objective
 
 
 ## Features
@@ -31,4 +44,3 @@ This Project is for detecting Customer Churn using their past records and servic
 2. MLFlow
 3. FastAPI
 4. AWS
-5. Jenkins
