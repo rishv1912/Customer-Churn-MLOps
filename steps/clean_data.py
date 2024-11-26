@@ -2,7 +2,7 @@ import logging
 from src.data_cleaning import DataCleaning,DataDivideStrategy,DataPreProcessingStrategy
 
 
-def clean_data(df):
+def clean_df(df):
     try:
         process_strategy = DataPreProcessingStrategy()
         data_cleaning = DataCleaning(df,process_strategy)

@@ -7,6 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC,LinearSVC
+from xgboost import XGBClassifier
 
 
 
@@ -69,6 +70,8 @@ class SVCModel(Model):
             raise e
 
 
+class XGBClfModel():
+    pass
 
 # Models we'll be used
 # Logistic Regression
