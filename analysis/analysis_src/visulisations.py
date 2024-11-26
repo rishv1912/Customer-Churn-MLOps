@@ -4,7 +4,7 @@ import seaborn as sns
 
 class PlotHist():
     def __init__(self,df,column_name):
-        self.column_name = column_name
+        self.column_name = column_name 
         self.df = df
 
     def plot_histogram(self,df,column_name):

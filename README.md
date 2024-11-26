@@ -35,7 +35,10 @@ This Project is for detecting Customer Churn using their past records and servic
 - total_intl_minutes               
 - total_intl_calls                 
 - total_intl_charge                
-- number_customer_service_calls    
+- number_customer_service_calls   
+
+## Target Column 
+- churn  
 
 
 
