@@ -23,6 +23,13 @@ class DataPreProcessingStrategy(DataStrategy):
         except Exception as e:
             logging.error(e)
             raise e
+        
+    def handle_unbalance(self,data):
+        try:
+            pass
+        except Exception as e:
+            raise e
+
             
 
 class DataDivideStrategy(DataStrategy):
