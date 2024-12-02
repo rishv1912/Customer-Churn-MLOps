@@ -30,7 +30,7 @@ class DataPreProcessingStrategy(DataStrategy):
         except Exception as e:
             raise e
 
-            
+
 
 class DataDivideStrategy(DataStrategy):
     def handle_data(self, data):
