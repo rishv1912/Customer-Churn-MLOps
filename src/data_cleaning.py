@@ -4,6 +4,8 @@ from abc import ABC,abstractmethod
 import numpy as np 
 import pandas as pd 
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder,OrdinalEncoder
+from constants.training_pipeline import COLS_TO_DROP,TARGET_COLUMN
 
 from typing import Union 
 
@@ -17,7 +19,7 @@ class DataStrategy(ABC):
 class DataPreProcessingStrategy(DataStrategy):
     def handle_data(self, data):
         try:
-            data = data.drop([' "recordID"','customer_id','total_day_charge','total_eve_charge','total_night_charge','total_intl_charge'],axis=1)
+            data = data.drop(COLS_TO_DROP,axis=1)
             return data
 
         except Exception as e:
@@ -32,9 +34,21 @@ class DataPreProcessingStrategy(DataStrategy):
     
     def handle_feature(self,data):
         try:
-            pass
+            # this is for the two object columns 'international_plan' and 'voice_mail_plan'
+            ordinal_encoder = OrdinalEncoder()
+
+            data['international_plan'] = ordinal_encoder.fit_transform(data[['international_plan']])
+            data['voice_mail_plan'] = ordinal_encoder.fit_transform(data[['voice_mail_plan']])
+
+            # this is for target column 'churn'
+            label_encoder = LabelEncoder()
+
+            data[TARGET_COLUMN] = label_encoder.fit_transform(data[[TARGET_COLUMN]]) 
+
+
         except Exception as e:
-            pass
+            logging.error("Error while encoding as {e}")
+            raise e
 
 
 
