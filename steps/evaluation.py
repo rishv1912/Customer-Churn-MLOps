@@ -14,7 +14,7 @@ def evaluate_model(model,X_test,y_test):
         accuracy_class = AccuracyScore()
         accuracy = accuracy_class.calculate_score(y_test,prediction)
 
-        rocauc_class = RocAucScore(y_test,prediction)
+        rocauc_class = RocAucScore()
         rocauc = rocauc_class.calculate_score(y_test,prediction)
 
         f1score_class = F1Score()

@@ -20,6 +20,17 @@ class DataPreProcessingStrategy(DataStrategy):
     def handle_data(self, data):
         try:
             data = data.drop(COLS_TO_DROP,axis=1)
+
+            ordinal_encoder = OrdinalEncoder()
+
+            data['international_plan'] = ordinal_encoder.fit_transform(data[['international_plan']])
+            data['voice_mail_plan'] = ordinal_encoder.fit_transform(data[['voice_mail_plan']])
+
+            # this is for target column 'churn'
+            label_encoder = LabelEncoder()
+
+            data[TARGET_COLUMN] = label_encoder.fit_transform(data[[TARGET_COLUMN]])
+                                                              
             return data
 
         except Exception as e:
@@ -43,7 +54,9 @@ class DataPreProcessingStrategy(DataStrategy):
             # this is for target column 'churn'
             label_encoder = LabelEncoder()
 
-            data[TARGET_COLUMN] = label_encoder.fit_transform(data[[TARGET_COLUMN]]) 
+            data[TARGET_COLUMN] = label_encoder.fit_transform(data[[TARGET_COLUMN]])
+
+            return data
 
 
         except Exception as e:
