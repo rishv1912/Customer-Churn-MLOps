@@ -17,7 +17,7 @@ class DataStrategy(ABC):
 class DataPreProcessingStrategy(DataStrategy):
     def handle_data(self, data):
         try:
-            data = data.drop([' "recordID"','customer_id'],axis=1)
+            data = data.drop([' "recordID"','customer_id','total_day_charge','total_eve_charge','total_night_charge','total_intl_charge'],axis=1)
             return data
 
         except Exception as e:
@@ -29,6 +29,12 @@ class DataPreProcessingStrategy(DataStrategy):
             pass
         except Exception as e:
             raise e
+    
+    def handle_feature(self,data):
+        try:
+            pass
+        except Exception as e:
+            pass
 
 
 
