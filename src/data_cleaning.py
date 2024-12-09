@@ -19,19 +19,7 @@ class DataStrategy(ABC):
 class DataPreProcessingStrategy(DataStrategy):
     def handle_data(self, data):
         try:
-            data = data.drop(COLS_TO_DROP,axis=1)
-
-            # ordinal_encoder = OrdinalEncoder()
-
-            # data['international_plan'] = ordinal_encoder.fit_transform(data[['international_plan']])
-            # data['voice_mail_plan'] = ordinal_encoder.fit_transform(data[['voice_mail_plan']])
-
-            # # this is for target column 'churn'
-            # label_encoder = LabelEncoder()
-
-            # data[TARGET_COLUMN] = label_encoder.fit_transform(data[[TARGET_COLUMN]])
-            # print(data)
-                                                              
+            data = data.drop(COLS_TO_DROP,axis=1)                                    
             return data
 
         except Exception as e:
@@ -72,6 +60,20 @@ class DataDivideStrategy(DataStrategy):
             X = data.drop(['churn'],axis=1)
             y = data['churn']
             X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=0)
+
+            ordinal_encoder = OrdinalEncoder()
+
+            data['international_plan'] = ordinal_encoder.fit_transform(data[['international_plan']])
+            data['voice_mail_plan'] = ordinal_encoder.fit_transform(data[['voice_mail_plan']])
+
+            # this is for target column 'churn'
+            label_encoder = LabelEncoder()
+
+            data[TARGET_COLUMN] = label_encoder.fit_transform(data[[TARGET_COLUMN]])
+            print(data)
+                          
+
+
             return X_train,X_test,y_train,y_test
         
         except Exception as e:
