@@ -57,22 +57,27 @@ class DataPreProcessingStrategy(DataStrategy):
 class DataDivideStrategy(DataStrategy):
     def handle_data(self, data):
         try:
-            X = data.drop(['churn'],axis=1)
-            y = data['churn']
+            X = data.drop([TARGET_COLUMN],axis=1)
+            y = data[TARGET_COLUMN]
             X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=0)
 
             ordinal_encoder = OrdinalEncoder()
 
-            data['international_plan'] = ordinal_encoder.fit_transform(data[['international_plan']])
-            data['voice_mail_plan'] = ordinal_encoder.fit_transform(data[['voice_mail_plan']])
+            ordinal_encoder.fit(X_train[["international_plan","voice_mail_plan"]])
 
-            # this is for target column 'churn'
+            X_train[["international_plan","voice_mail_plan"]] = ordinal_encoder.transform(X_train[
+                ["international_plan","voice_mail_plan"]])
+            
+            X_test[["international_plan","voice_mail_plan"]] = ordinal_encoder.transform(X_test[
+                ["international_plan","voice_mail_plan"]])
+            
             label_encoder = LabelEncoder()
 
-            data[TARGET_COLUMN] = label_encoder.fit_transform(data[[TARGET_COLUMN]])
-            print(data)
-                          
+            label_encoder.fit(y_train[TARGET_COLUMN])
+            
+            y_train[TARGET_COLUMN] = label_encoder.transform(y_train[TARGET_COLUMN])
 
+            y_test[TARGET_COLUMN] = label_encoder.transform(y_test[TARGET_COLUMN])
 
             return X_train,X_test,y_train,y_test
         
