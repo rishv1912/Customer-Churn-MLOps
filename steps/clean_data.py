@@ -18,4 +18,3 @@ def clean_df(df):
     except Exception as e:
         logging.error(f"Error in cleaning data : {e}")
         raise e
-

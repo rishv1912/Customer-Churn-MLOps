@@ -30,6 +30,7 @@ class DataPreProcessingStrategy(DataStrategy):
             label_encoder = LabelEncoder()
 
             data[TARGET_COLUMN] = label_encoder.fit_transform(data[[TARGET_COLUMN]])
+            print(data)
                                                               
             return data
 
