@@ -25,33 +25,6 @@ class DataPreProcessingStrategy(DataStrategy):
         except Exception as e:
             logging.error(e)
             raise e
-        
-    def handle_unbalance(self,data):
-        try:
-            pass
-        except Exception as e:
-            raise e
-    
-    def handle_feature(self,data):
-        try:
-            # this is for the two object columns 'international_plan' and 'voice_mail_plan'
-            ordinal_encoder = OrdinalEncoder()
-
-            data['international_plan'] = ordinal_encoder.fit_transform(data[['international_plan']])
-            data['voice_mail_plan'] = ordinal_encoder.fit_transform(data[['voice_mail_plan']])
-
-            # this is for target column 'churn'
-            label_encoder = LabelEncoder()
-
-            data[TARGET_COLUMN] = label_encoder.fit_transform(data[[TARGET_COLUMN]])
-
-            return data
-
-
-        except Exception as e:
-            logging.error("Error while encoding as {e}")
-            raise e
-
 
 
 class DataDivideStrategy(DataStrategy):
