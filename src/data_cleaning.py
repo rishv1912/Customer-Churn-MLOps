@@ -6,6 +6,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder,OrdinalEncoder
 from constants.training_pipeline import COLS_TO_DROP,TARGET_COLUMN
+from imblearn.over_sampling import SMOTE
+
 
 from typing import Union 
 
@@ -33,6 +35,10 @@ class DataDivideStrategy(DataStrategy):
             X = data.drop(["churn"],axis=1)
             y = data["churn"]
             X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=0)
+
+            smote = SMOTE(random_state=42)
+            X_train_balanced, y_train_balanced = smote.fit_resample(X_train, y_train)
+
 
             ordinal_encoder = OrdinalEncoder()
 

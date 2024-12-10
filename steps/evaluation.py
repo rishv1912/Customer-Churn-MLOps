@@ -20,6 +20,8 @@ def evaluate_model(model,X_test,y_test):
         f1score_class = F1Score()
         f1score = f1score_class.calculate_score(y_test,prediction)
 
+        
+
         return precision,recall,f1score,rocauc
 
     except Exception as e:
