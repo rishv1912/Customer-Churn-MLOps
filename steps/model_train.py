@@ -2,6 +2,7 @@ import logging
 # from .config import ModelNameConfig
 # from xgboost import XGBClassifier
 from sklearn.tree import DecisionTreeClassifier
+import mlflow
 
 def train_model(
         X_train,
