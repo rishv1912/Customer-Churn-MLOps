@@ -10,4 +10,4 @@ def train_pipeline(data_path):
     model = train_model(X_train,X_test,y_train,y_test)
     precision,recall,f1_scr,roc_auc = evaluate_model(model,X_test,y_test)
     # this print is temporary to check is it working well or not, giving any error
-    print(f"Precision {precision}\nRecall {recall}\nF1 Score {f1_scr}\nRoc_AUC {roc_auc}")
+    print(f"Precision {precision}\nRecall {recall}\nF1 Score {f1_scr}\nROC AUC {roc_auc}\nX_train len {len(X_train)}\nX_test {len(X_test)}")

@@ -36,10 +36,6 @@ class DataDivideStrategy(DataStrategy):
             y = data["churn"]
             X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=0)
 
-            smote = SMOTE(random_state=42)
-            X_train_balanced, y_train_balanced = smote.fit_resample(X_train, y_train)
-
-
             ordinal_encoder = OrdinalEncoder()
 
             ordinal_encoder.fit(X_train[["international_plan","voice_mail_plan"]])
@@ -50,18 +46,21 @@ class DataDivideStrategy(DataStrategy):
             X_test[["international_plan","voice_mail_plan"]] = ordinal_encoder.transform(X_test[
                 ["international_plan","voice_mail_plan"]])
             
+            smote = SMOTE(random_state=42)
+            X_train_balanced, y_train_balanced = smote.fit_resample(X_train, y_train)
+
             label_encoder = LabelEncoder()
-
-            label_encoder.fit(y_train)
+            label_encoder.fit(y_train_balanced)
             
-            y_train = label_encoder.transform(y_train)
-
+            y_train_balanced = label_encoder.transform(y_train_balanced)
             y_test = label_encoder.transform(y_test)
 
-            return X_train,X_test,y_train,y_test
+            return X_train_balanced,X_test,y_train_balanced,y_test
         
         except Exception as e:
             logging.error(f"Error in dividing data :{e}")
+
+
         
 
 class DataCleaning(DataStrategy):
