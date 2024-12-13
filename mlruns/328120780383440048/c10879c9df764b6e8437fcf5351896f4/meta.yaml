@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/sanjayprajapati/Documents/Super%2030%20projects/Customer-Churn/mlruns/328120780383440048/c10879c9df764b6e8437fcf5351896f4/artifacts
+end_time: 1734113330575
+entry_point_name: ''
+experiment_id: '328120780383440048'
+lifecycle_stage: active
+run_id: c10879c9df764b6e8437fcf5351896f4
+run_name: handsome-fish-921
+run_uuid: c10879c9df764b6e8437fcf5351896f4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1734113330557
+status: 4
+tags: []
+user_id: sanjayprajapati

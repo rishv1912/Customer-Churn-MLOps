@@ -1,6 +1,7 @@
 import logging
+import mlflow
 from src.evaluation import AccuracyScore,RocAucScore,F1Score,PrecisionScore,RecallScore
-import logging
+
 
 def evaluate_model(model,X_test,y_test):
     prediction = model.predict(X_test)
@@ -21,7 +22,11 @@ def evaluate_model(model,X_test,y_test):
         f1score_class = F1Score()
         f1score = f1score_class.calculate_score(y_test,prediction)
 
-
+        mlflow.log_metric("recall",recall)
+        mlflow.log_metric("precision",precision)
+        mlflow.log_metric("accuracy",accuracy)
+        mlflow.log_metric("rocauc",rocauc)
+        mlflow.log_metric("f1score",f1score)
 
         return precision,recall,f1score,rocauc
 
