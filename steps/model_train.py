@@ -3,6 +3,7 @@ import logging
 # from xgboost import XGBClassifier
 from sklearn.tree import DecisionTreeClassifier
 import mlflow
+import joblib
 
 def train_model(
         X_train,
@@ -16,6 +17,9 @@ def train_model(
 
         clf = DecisionTreeClassifier()
         trained_model = clf.fit(X_train,y_train)
+
+        joblib.dump()
+
         return trained_model
     except Exception as e:
         logging.error(f"Error in training Model: {e}")
