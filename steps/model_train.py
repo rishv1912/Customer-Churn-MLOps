@@ -18,7 +18,7 @@ def train_model(
         clf = DecisionTreeClassifier()
         trained_model = clf.fit(X_train,y_train)
 
-        joblib.dump()
+        joblib.dump(train_model,'model.pkl')
 
         return trained_model
     except Exception as e:
