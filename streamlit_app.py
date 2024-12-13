@@ -1,7 +1,54 @@
 import streamlit as st
 import joblib
+import numpy as np
+
+
 
 model = joblib.load('model.pkl')
 
+print(type(model))
+# # Numeric Inputs
+# account_length = st.number_input("Account Length (days)", min_value=0, step=1, help="How long the customer has been with the company.")
+# area_code = st.number_input("Area Code", min_value=100, max_value=999, step=1, help="Three-digit area code of the customer's phone number.")
+# number_vmail_messages = st.number_input("Number of Voicemail Messages", min_value=0, step=1, help="Number of voicemail messages the customer has.")
+# total_day_minutes = st.number_input("Total Day Minutes", min_value=0.0, step=0.1, help="Total minutes the customer used during the day.")
+# total_day_calls = st.number_input("Total Day Calls", min_value=0, step=1, help="Total calls made during the day.")
+# total_eve_minutes = st.number_input("Total Evening Minutes", min_value=0.0, step=0.1, help="Total minutes the customer used during the evening.")
+# total_eve_calls = st.number_input("Total Evening Calls", min_value=0, step=1, help="Total calls made during the evening.")
+# total_night_minutes = st.number_input("Total Night Minutes", min_value=0.0, step=0.1, help="Total minutes the customer used during the night.")
+# total_night_calls = st.number_input("Total Night Calls", min_value=0, step=1, help="Total calls made during the night.")
+# total_intl_minutes = st.number_input("Total International Minutes", min_value=0.0, step=0.1, help="Total minutes the customer used for international calls.")
+# total_intl_calls = st.number_input("Total International Calls", min_value=0, step=1, help="Total calls made internationally.")
+# number_customer_service_calls = st.number_input("Number of Customer Service Calls", min_value=0, step=1, help="Number of calls the customer made to customer service.")
 
-st.title('Telecom Customer Churn App')
+# # Categorical Inputs
+# international_plan = st.selectbox(
+#     "Does the customer have an International Plan?",
+#     options=["Yes", "No"],
+#     help="Select whether the customer has an international calling plan."
+# )
+
+# voice_mail_plan = st.selectbox(
+#     "Does the customer have a Voicemail Plan?",
+#     options=["Yes", "No"],
+#     help="Select whether the customer has a voicemail plan."
+# )
+
+# # Convert categorical inputs to binary (assuming your model expects 1/0)
+# international_plan_binary = 1 if international_plan == "Yes" else 0
+# voice_mail_plan_binary = 1 if voice_mail_plan == "Yes" else 0
+
+# # Combine all inputs into a single array
+# features = np.array([[
+#     account_length, area_code, number_vmail_messages,
+#     total_day_minutes, total_day_calls, total_eve_minutes, total_eve_calls,
+#     total_night_minutes, total_night_calls, total_intl_minutes, total_intl_calls,
+#     number_customer_service_calls, international_plan_binary, voice_mail_plan_binary
+# ]])
+
+# # Predict button
+# if st.button("Predict"):
+#     prediction = model.predict(features)
+#     st.write(f"The predicted class is: {'Churn' if prediction[0] else 'Not Churn'}")
+
+
