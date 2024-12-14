@@ -1,0 +1,18 @@
+digest: e77bf7f2
+name: dataset
+profile: '{"num_rows": 17704, "num_elements": 247856}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "account_length", "required":
+  true}, {"type": "long", "name": "area_code", "required": true}, {"type": "double",
+  "name": "international_plan", "required": true}, {"type": "double", "name": "voice_mail_plan",
+  "required": true}, {"type": "long", "name": "number_vmail_messages", "required":
+  true}, {"type": "double", "name": "total_day_minutes", "required": true}, {"type":
+  "long", "name": "total_day_calls", "required": true}, {"type": "double", "name":
+  "total_eve_minutes", "required": true}, {"type": "long", "name": "total_eve_calls",
+  "required": true}, {"type": "double", "name": "total_night_minutes", "required":
+  true}, {"type": "long", "name": "total_night_calls", "required": true}, {"type":
+  "double", "name": "total_intl_minutes", "required": true}, {"type": "long", "name":
+  "total_intl_calls", "required": true}, {"type": "long", "name": "number_customer_service_calls",
+  "required": true}]}'
+source: '{"tags": {"mlflow.user": "sanjayprajapati", "mlflow.source.name": "run_pipeline.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "c8898466c3365c4a65a963f15f872600f828cd81"}}'
+source_type: code

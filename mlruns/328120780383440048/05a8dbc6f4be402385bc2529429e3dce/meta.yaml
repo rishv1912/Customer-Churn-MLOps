@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/sanjayprajapati/Documents/Super%2030%20projects/Customer-Churn/mlruns/328120780383440048/05a8dbc6f4be402385bc2529429e3dce/artifacts
+end_time: 1734116389906
+entry_point_name: ''
+experiment_id: '328120780383440048'
+lifecycle_stage: active
+run_id: 05a8dbc6f4be402385bc2529429e3dce
+run_name: auspicious-conch-464
+run_uuid: 05a8dbc6f4be402385bc2529429e3dce
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1734116389886
+status: 3
+tags: []
+user_id: sanjayprajapati

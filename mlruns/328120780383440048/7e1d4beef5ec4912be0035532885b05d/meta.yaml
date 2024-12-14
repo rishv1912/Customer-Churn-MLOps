@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/sanjayprajapati/Documents/Super%2030%20projects/Customer-Churn/mlruns/328120780383440048/7e1d4beef5ec4912be0035532885b05d/artifacts
+end_time: 1734116389856
+entry_point_name: ''
+experiment_id: '328120780383440048'
+lifecycle_stage: active
+run_id: 7e1d4beef5ec4912be0035532885b05d
+run_name: capable-sponge-738
+run_uuid: 7e1d4beef5ec4912be0035532885b05d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1734116382879
+status: 3
+tags: []
+user_id: sanjayprajapati

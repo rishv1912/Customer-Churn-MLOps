@@ -5,8 +5,6 @@ from sklearn.tree import DecisionTreeClassifier
 # from xgboost import XGBClassifier
 # from .config import ModelNameConfig
 
-import mlflow
-import mlflow.sklearn
 
 def train_model(
         X_train,
@@ -19,13 +17,8 @@ def train_model(
         # return trained_model
 
         clf = DecisionTreeClassifier()
-
-        with mlflow.start_run():
             
-            trained_model = clf.fit(X_train,y_train)
-
-            mlflow.sklearn.log_model(trained_model,"decision_trees")
-        
+        trained_model = clf.fit(X_train,y_train)        
 
         joblib.dump(trained_model,'model.pkl')
 

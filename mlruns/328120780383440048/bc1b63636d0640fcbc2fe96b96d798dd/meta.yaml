@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/sanjayprajapati/Documents/Super%2030%20projects/Customer-Churn/mlruns/328120780383440048/bc1b63636d0640fcbc2fe96b96d798dd/artifacts
+end_time: 1734116488232
+entry_point_name: ''
+experiment_id: '328120780383440048'
+lifecycle_stage: active
+run_id: bc1b63636d0640fcbc2fe96b96d798dd
+run_name: sedate-tern-265
+run_uuid: bc1b63636d0640fcbc2fe96b96d798dd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1734116488079
+status: 3
+tags: []
+user_id: sanjayprajapati
