@@ -20,8 +20,8 @@ This Project is for detecting Customer Churn using their past records and servic
 |--------------------------|---------------------------------------------------------|----------------------------------------------------------------|
 | **Frontend**             | Streamlit                                               | Provides a simple UI for real-time single URL predictions.     |
 | **Backend**              | FastAPI                                                 | Handles batch predictions and API endpoints.                   |
-| **Modeling**             | XGBoost, Python                                         | Machine learning model for detecting malicious URLs.           |
-| **Database**             | MongoDB                                                 | Stores data records for ingestion and model training.          |
+| **Modeling**             | DecisionTreeClassifier, Python                                         | Machine learning model for detecting malicious URLs.           |
+| **Database**             | PostgresSQl                                                 | Stores data records for ingestion and model training.          |
 | **Orchestration**        | Apache Airflow                                          | Orchestrates training, retraining, and batch prediction pipelines. |
 | **Experiment Tracking**  | MLflow                                                  | Tracks model metrics like F1-score, Precision, and Recall.     |
 | **CI/CD**                | GitHub Actions                                          | Automates CI/CD pipelines, including Docker build and deployment. |
