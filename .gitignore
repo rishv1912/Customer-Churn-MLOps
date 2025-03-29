@@ -1,4 +1,6 @@
 .env
 .zen
 analysis/
-__pycache__ 
+steps/__pycache__ 
+str/__pycache__
+pipeline/__pycache__
