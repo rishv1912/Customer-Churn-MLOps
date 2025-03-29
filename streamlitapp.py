@@ -1,6 +1,10 @@
 import streamlit as st
 import joblib
 import numpy as np
+import pandas as pd
+
+
+st.title("Customer Churn Prediction")
 
 
 
@@ -40,10 +44,20 @@ voice_mail_plan_binary = 1 if voice_mail_plan == "Yes" else 0
 
 # Combine all inputs into a single array
 features = np.array([[
-    account_length, area_code, number_vmail_messages,
-    total_day_minutes, total_day_calls, total_eve_minutes, total_eve_calls,
-    total_night_minutes, total_night_calls, total_intl_minutes, total_intl_calls,
-    number_customer_service_calls, international_plan_binary, voice_mail_plan_binary
+    account_length, 
+    area_code, 
+    number_vmail_messages,
+    total_day_minutes, 
+    total_day_calls, 
+    total_eve_minutes, 
+    total_eve_calls,
+    total_night_minutes, 
+    total_night_calls, 
+    total_intl_minutes, 
+    total_intl_calls,
+    number_customer_service_calls, 
+    international_plan_binary, 
+    voice_mail_plan_binary
 ]])
 
 # Predict button
