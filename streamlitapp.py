@@ -2,7 +2,8 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
-
+import json
+import requests
 
 st.title("Customer Churn Prediction")
 
@@ -46,6 +47,8 @@ voice_mail_plan_binary = 1 if voice_mail_plan == "Yes" else 0
 features = np.array([[
     account_length, 
     area_code, 
+    international_plan_binary, 
+    voice_mail_plan_binary,
     number_vmail_messages,
     total_day_minutes, 
     total_day_calls, 
@@ -56,13 +59,31 @@ features = np.array([[
     total_intl_minutes, 
     total_intl_calls,
     number_customer_service_calls, 
-    international_plan_binary, 
-    voice_mail_plan_binary
 ]])
+
+inputs ={
+    "account_length" : account_length, 
+    "area_code" : area_code, 
+    "international_plan_binary" : international_plan_binary, 
+    "voice_mail_plan_binary": voice_mail_plan_binary,
+    "number_vmail_messages" : number_vmail_messages,
+    "total_day_minutes" : total_day_minutes, 
+    "total_day_calls" : total_day_calls, 
+    "total_eve_minutes" : total_eve_minutes, 
+    "total_eve_calls" : total_day_calls,
+    "total_night_minutes" : total_night_minutes, 
+    "total_night_calls": total_night_calls, 
+    "total_intl_minutes" : total_intl_minutes, 
+    "total_intl_calls" :total_intl_calls,
+    "number_customer_service_calls" :number_customer_service_calls
+
+}
 
 # Predict button
 if st.button("Predict"):
-    prediction = model.predict(features)
-    st.write(f"The predicted class is: {'Churn' if prediction[0] else 'Not Churn'}")
+    # prediction = model.predict(features)
+    # st.write(f"The predicted class is: {'Churn' if prediction[0] else 'Not Churn'}")
+    res = requests.post(url="127.0.0.1:8000/predict",data = json.dump(inputs))
+    st.subheader(f"API Response : {res.text}")
 
 

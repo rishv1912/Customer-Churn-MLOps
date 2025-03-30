@@ -25,7 +25,7 @@ class CustomerData(BaseModel):
     total_intl_calls : int              
     number_customer_service_calls :int
 
-
+    # from pydantic library
     @validator("voice_mail_plan","international_plan")
     def validate_yes_no(cls,value):
         if value.lower() in ["yes","y"]:
