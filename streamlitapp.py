@@ -15,6 +15,16 @@ print(type(model))
 # Numeric Inputs
 account_length = st.number_input("Account Length (days)", min_value=0, step=1, help="How long the customer has been with the company.")
 area_code = st.number_input("Area Code", min_value=100, max_value=999, step=1, help="Three-digit area code of the customer's phone number.")
+international_plan = st.selectbox(
+    "Does the customer have an International Plan?",
+    options=["Yes", "No"],
+    help="Select whether the customer has an international calling plan."
+)
+voice_mail_plan = st.selectbox(
+    "Does the customer have a Voicemail Plan?",
+    options=["Yes", "No"],
+    help="Select whether the customer has a voicemail plan."
+)
 number_vmail_messages = st.number_input("Number of Voicemail Messages", min_value=0, step=1, help="Number of voicemail messages the customer has.")
 total_day_minutes = st.number_input("Total Day Minutes", min_value=0.0, step=0.1, help="Total minutes the customer used during the day.")
 total_day_calls = st.number_input("Total Day Calls", min_value=0, step=1, help="Total calls made during the day.")
@@ -26,18 +36,6 @@ total_intl_minutes = st.number_input("Total International Minutes", min_value=0.
 total_intl_calls = st.number_input("Total International Calls", min_value=0, step=1, help="Total calls made internationally.")
 number_customer_service_calls = st.number_input("Number of Customer Service Calls", min_value=0, step=1, help="Number of calls the customer made to customer service.")
 
-# Categorical Inputs
-international_plan = st.selectbox(
-    "Does the customer have an International Plan?",
-    options=["Yes", "No"],
-    help="Select whether the customer has an international calling plan."
-)
-
-voice_mail_plan = st.selectbox(
-    "Does the customer have a Voicemail Plan?",
-    options=["Yes", "No"],
-    help="Select whether the customer has a voicemail plan."
-)
 
 # Convert categorical inputs to binary (assuming your model expects 1/0)
 international_plan_binary = 1 if international_plan == "Yes" else 0
@@ -83,7 +81,19 @@ inputs ={
 if st.button("Predict"):
     # prediction = model.predict(features)
     # st.write(f"The predicted class is: {'Churn' if prediction[0] else 'Not Churn'}")
-    res = requests.post(url="127.0.0.1:8000/predict",data = json.dump(inputs))
-    st.subheader(f"API Response : {res.text}")
+    url = "http://127.0.0.1:8000/predict"
+    response = requests.post(url=url,data = json.dumps(inputs))
+    
+    if response.status_code == 200:
+        result = response.json()
+
+        churn_text = "Yes" if result["churn"] else "No"
+        probability = round(result["churn_probability"] * 100,2)
+        
+        st.write(f"Churn : {churn_text}")
+    
+    else:
+        st.error("Error: Unable to Predict, Try again")
+
 
 

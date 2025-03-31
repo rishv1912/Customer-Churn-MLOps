@@ -12,8 +12,8 @@ app = FastAPI()
 class CustomerData(BaseModel):               
     account_length : int               
     area_code : int     
-    international_plan : str               
-    voice_mail_plan : str
+    international_plan_binary : int             
+    voice_mail_plan_binary : int
     number_vmail_messages : int         
     total_day_minutes : float      
     total_day_calls : int
@@ -26,15 +26,18 @@ class CustomerData(BaseModel):
     number_customer_service_calls :int
 
     # from pydantic library
-    @validator("voice_mail_plan","international_plan")
-    def validate_yes_no(cls,value):
-        if value.lower() in ["yes","y"]:
-            return 1
-        elif value.lower() in ["no","n"]:
-            return 0
-        else:
-            raise ValueError("Input must be 'Yes' or 'No'")
+    # @validator("voice_mail_plan","international_plan")
+    # def validate_yes_no(cls,value):
+    #     if value.lower() in ["yes","y"]:
+    #         return 1
+    #     elif value.lower() in ["no","n"]:
+    #         return 0
+    #     else:
+    #         raise ValueError("Input must be 'Yes' or 'No'")
 
+# @app.get('/')
+# async def root():
+#     return {"message": "Customer Churn Prediction"}
 
 @app.post("/predict")
 async def predict_churn(data : CustomerData):
@@ -42,8 +45,8 @@ async def predict_churn(data : CustomerData):
         [
             data.account_length,
             data.area_code,
-            data.international_plan,
-            data.voice_mail_plan,
+            data.international_plan_binary,
+            data.voice_mail_plan_binary,
             data.number_vmail_messages,
             data.total_day_minutes,
             data.total_day_calls,
