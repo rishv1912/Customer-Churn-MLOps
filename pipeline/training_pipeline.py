@@ -1,4 +1,5 @@
 import mlflow
+from mlflow.models import infer_signature
 
 import pandas as pd
 from steps.ingest_data import ingest_df
@@ -7,6 +8,7 @@ from steps.model_train import train_model
 from steps.evaluation import evaluate_model
 
 mlflow.set_experiment("customer_churn_prediction")
+mlflow.set_tracking_uri("https://127.0.0.1:8080")
 
 def train_pipeline(data_path):
     df = ingest_df(data_path)
@@ -22,5 +24,28 @@ def train_pipeline(data_path):
     print(f"Precision {precision}\nRecall {recall}\nF1 Score {f1_scr}\nROC AUC {roc_auc}\nX_train len {len(X_train)}\nX_test {len(X_test)}")
     print(X_train.T.head(1))
 
+    metrics ={
+        "Precision":precision,
+        "Recall":recall,
+        "F1 Score":f1_scr,
+        "Roc Auc":roc_auc,
+    }
 
+    # integration of mlflow
+    with mlflow.start_run():
+
+        # mlflow.log_params()
+        mlflow.log_metric(metrics)
+
+        mlflow.set_tag("Training Info","Decision tree classifier for Customer Churn")
+
+        signature = infer_signature(X_train,model.predict(X_train))
+
+        model_info = mlflow.sklearn.log_model(
+            sk_model = model,
+            artifcact_path="customer_churn",
+            signature=signature,
+            input_example=X_train,
+            registered_model_name = "Customer Churn tracing"
+        )
 

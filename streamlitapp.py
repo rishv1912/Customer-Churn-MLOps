@@ -22,7 +22,7 @@ international_plan = st.selectbox(
 )
 voice_mail_plan = st.selectbox(
     "Does the customer have a Voicemail Plan?",
-    options=["Yes", "No"],
+    options=["Yes", "No"],  
     help="Select whether the customer has a voicemail plan."
 )
 number_vmail_messages = st.number_input("Number of Voicemail Messages", min_value=0, step=1, help="Number of voicemail messages the customer has.")
@@ -93,7 +93,7 @@ if st.button("Predict"):
         st.write(f"Churn : {churn_text}")
     
     else:
-        st.error("Error: Unable to Predict, Try again")
+        st.error("Error: Unable to Predict, Try again") 
 
 
 

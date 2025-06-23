@@ -8,7 +8,7 @@ model = joblib.load("churn_model.pkl")
 
 app = FastAPI()
 
-
+# base class for getting 
 class CustomerData(BaseModel):               
     account_length : int               
     area_code : int     

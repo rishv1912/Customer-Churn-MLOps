@@ -56,7 +56,12 @@ This Project is for detecting Customer Churn using their past records and servic
 
 
 ### Stack
-1. Zenml
-2. MLFlow
-3. FastAPI
-4. AWS
+1. MLFlow
+2. FastAPI
+3. Streamlit
+4. Docker
+5. DVC
+6. AWS
+7. Github Actions
+8. AWS(EC2,ECR,S3)
+9. Postgresql
