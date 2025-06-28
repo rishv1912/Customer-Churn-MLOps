@@ -8,7 +8,7 @@ from steps.model_train import train_model
 from steps.evaluation import evaluate_model
 
 mlflow.set_experiment("customer_churn_prediction")
-mlflow.set_tracking_uri("https://127.0.0.1:8080")
+mlflow.set_tracking_uri("https://127.0.0.1:5000/")
 
 def train_pipeline(data_path):
     df = ingest_df(data_path)
