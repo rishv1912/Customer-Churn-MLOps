@@ -29,7 +29,7 @@ def train_pipeline(data_path):
         "Recall":recall,
         "F1 Score":f1_scr,
         "Roc Auc":roc_auc,
-    }
+    } 
 
     # integration of mlflow
     with mlflow.start_run():
@@ -47,5 +47,9 @@ def train_pipeline(data_path):
             signature=signature,
             input_example=X_train,
             registered_model_name = "Customer Churn tracing"
+        )
+
+        mlflow.set_logged_model_tags(
+            model_info.model_id,{"Training":"Training a Decision Tree model"}
         )
 
