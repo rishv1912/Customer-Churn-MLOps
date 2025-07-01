@@ -8,7 +8,8 @@ from steps.model_train import train_model
 from steps.evaluation import evaluate_model
 
 mlflow.set_experiment("customer_churn_prediction")
-mlflow.set_tracking_uri("https://127.0.0.1:5000/")
+#mlflow.set_tracking_uri("https://127.0.0.1:5000/")
+
 
 def train_pipeline(data_path):
     df = ingest_df(data_path)
@@ -32,10 +33,16 @@ def train_pipeline(data_path):
     } 
 
     # integration of mlflow
+    
     with mlflow.start_run():
 
-        # mlflow.log_params()
-        mlflow.log_metric(metrics)
+        # for key,value in metrics.items():
+        #     mlflow.log_metric(key,value)
+       
+        mlflow.log_metric("precision",precision)
+        mlflow.log_metric("recall",recall)
+        mlflow.log_metric("f1score",f1_scr)
+
 
         mlflow.set_tag("Training Info","Decision tree classifier for Customer Churn")
 
@@ -43,13 +50,15 @@ def train_pipeline(data_path):
 
         model_info = mlflow.sklearn.log_model(
             sk_model = model,
-            artifcact_path="customer_churn",
+            artifact_path="customer_churn",
             signature=signature,
             input_example=X_train,
             registered_model_name = "Customer Churn tracing"
         )
 
-        mlflow.set_logged_model_tags(
-            model_info.model_id,{"Training":"Training a Decision Tree model"}
-        )
+        # mlflow.set_logged_model_tags(
+        #     model_info.model_id,{"Training":"Training a Decision Tree model"}
+        # )
+        mlflow.pyfunc.load_model(model_info.model_uri)
 
+        # mlflow.end_run()

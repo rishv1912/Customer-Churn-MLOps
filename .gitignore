@@ -4,3 +4,4 @@ analysis/
 steps/__pycache__ 
 str/__pycache__
 pipeline/__pycache__
+mlruns/

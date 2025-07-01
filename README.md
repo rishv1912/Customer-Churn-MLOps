@@ -2,7 +2,7 @@
 This Project is for detecting Customer Churn using their past records and service provided.
 
 ## Table of content
-1. [Projeect Objective](#project-objective)
+1. [Project Objective](#project-objective)
 2. 
 3. 
 4. 
