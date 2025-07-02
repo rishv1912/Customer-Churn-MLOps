@@ -7,7 +7,7 @@ from steps.clean_data import clean_df
 from steps.model_train import train_model
 from steps.evaluation import evaluate_model
 
-mlflow.set_experiment("customer_churn_prediction")
+mlflow.set_experiment("Telecom Customer Churn Prediction")
 #mlflow.set_tracking_uri("https://127.0.0.1:5000/")
 
 

@@ -23,6 +23,7 @@ def train_model(
         joblib.dump(trained_model,'churn_model.pkl')
 
         return trained_model
+    
     except Exception as e:
         logging.error(f"Error in training Model: {e}")
         raise e
