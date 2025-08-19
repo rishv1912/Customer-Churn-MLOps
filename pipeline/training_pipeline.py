@@ -14,7 +14,7 @@ mlflow.set_experiment("Telecom Customer Churn Prediction")
 def train_pipeline(data_path):
     df = ingest_df(data_path)
     X_train,X_test,y_train,y_test = clean_df(df)
-    model = train_model(X_train,X_test,y_train,y_test)
+    model,best_params = train_model(X_train,X_test,y_train,y_test)
     precision,recall,f1_scr,roc_auc = evaluate_model(model,X_test,y_test)
     # this print is temporary to check is it working well or not, giving any error
     print("X_train",X_train.shape)
@@ -42,6 +42,7 @@ def train_pipeline(data_path):
         mlflow.log_metric("precision",precision)
         mlflow.log_metric("recall",recall)
         mlflow.log_metric("f1score",f1_scr)
+        mlflow.log_params(best_params)
 
 
         mlflow.set_tag("Training Info","Decision tree classifier for Customer Churn")
