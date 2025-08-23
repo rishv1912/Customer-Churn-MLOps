@@ -5,3 +5,7 @@ steps/__pycache__
 str/__pycache__
 pipeline/__pycache__
 mlruns/
+airflow/logs
+airflow/airflow.cfg
+airflow/airflow.db
+airflow/simple_auth_manager_passwords.json.generated

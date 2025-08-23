@@ -44,7 +44,7 @@ def train_pipeline(data_path):
         mlflow.log_metric("f1score",f1_scr)
         mlflow.log_params(best_params)
 
-
+        mlflow.set_tag("mlflow.user", "Rishav")  
         mlflow.set_tag("Training Info","Decision tree classifier for Customer Churn")
 
         signature = infer_signature(X_train,model.predict(X_train))
