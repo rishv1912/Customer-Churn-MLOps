@@ -6,6 +6,12 @@ str/__pycache__
 pipeline/__pycache__
 mlruns/
 airflow/logs
+airflow/plugins
 airflow/airflow.cfg
 airflow/airflow.db
 airflow/simple_auth_manager_passwords.json.generated
+airflow.db
+airflow.cfg
+simple_auth_manager_passwords.json.generated
+dags/
+logs/
