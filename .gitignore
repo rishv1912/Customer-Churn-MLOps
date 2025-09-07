@@ -15,3 +15,4 @@ airflow.cfg
 simple_auth_manager_passwords.json.generated
 dags/
 logs/
+airflow/dags/__pycache__
