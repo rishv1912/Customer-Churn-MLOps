@@ -11,17 +11,26 @@ from steps.evaluation import evaluate_model
 from pipeline.training_pipeline import train_pipeline
 
 
-with DAG(
-        dag_id="ML Pipeline",
-        start_date=datetime(2025, 8, 24),
-        schedule="0 0 * * *",
-        catchup=False,
-        tags=["training", "example1"] ) as dag:
+@dag(
+    dag_id="ML Pipeline",
+    start_date=datetime(2025, 8, 24),
+    schedule="0 0 * * *",
+    catchup=False,
+    tags=["training", "example1"] )
     
-    def ml_pipeline():  
+def customer_churn_pipeline():
+    
+    @task
+    def run_ml_pipeine():
+        data_path = "data/customer_data.csv"
+        result = train_pipeline(data_path)
+        return "Pipeline Created Successfully"
 
-        data_task = PythonOperator(
+    result = run_ml_pipeine()
+    
 
-        )
+ml_pipeline_dag = customer_churn_pipeline()
+            
+            
             
     
