@@ -2,21 +2,21 @@ from datetime import datetime
 from airflow import DAG
 from airflow.providers.standard.operators.bash  import BashOperator
 from airflow.providers.standard.operators.python  import PythonOperator
-from airflow.decorators import task
+from airflow.decorators import task,dag
+import sys, os
 
-from steps.clean_data import clean_df
-from steps.ingest_data import ingest_df
-from steps.model_train import train_model
-from steps.evaluation import evaluate_model
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+sys.path.append(PROJECT_ROOT)
+
 from pipeline.training_pipeline import train_pipeline
 
-
 @dag(
-    dag_id="ML Pipeline",
+    dag_id="customer_churn",
     start_date=datetime(2025, 8, 24),
     schedule="0 0 * * *",
     catchup=False,
-    tags=["training", "example1"] )
+    tags=["training", "example1"] 
+)
     
 def customer_churn_pipeline():
     
