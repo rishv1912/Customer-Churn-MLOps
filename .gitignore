@@ -1,5 +1,6 @@
 .env
 .zen
+config.py
 analysis/
 steps/__pycache__ 
 str/__pycache__
