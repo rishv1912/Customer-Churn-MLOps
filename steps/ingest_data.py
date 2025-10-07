@@ -1,7 +1,7 @@
 # Importing Libraries
 import logging 
 import pandas as pd
-
+from sqlalchemy import create_engine
 
 class IngestData:
     """This IngestData class is taking the path of the data and return the data as Pandas DataFrame"""
@@ -28,3 +28,16 @@ def ingest_df(data_path :str ):
         logging.error(f"Error while ingesting the data as {e}")
         raise e
 
+
+def ingest_df_sql(table_name):
+    engine = None
+    try:
+        engine = create_engine('postgresql://postgres:whygrespass@localhost:5433/dbname')
+        df = pd.read_sql_table(table_name, engine)
+        return df
+    except Exception as e:
+        print(f"Error fetching data: {e}")
+        return None
+    finally:
+        if engine:
+            engine.dispose()
