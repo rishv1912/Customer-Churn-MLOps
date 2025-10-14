@@ -32,7 +32,7 @@ def ingest_df(data_path :str ):
 def ingest_df_sql(table_name):
     engine = None
     try:
-        engine = create_engine('postgresql://postgres:whygrespass@localhost:5433/telecom_db')
+        engine = create_engine(f'postgresql://postgres:whygrespass@localhost:5433/telecom_db')
         df = pd.read_sql_table(table_name, engine)
         return df
     except Exception as e:
