@@ -12,9 +12,9 @@ mlflow.set_tracking_uri("file:///Users/sanjayprajapati/Documents/Super 30 projec
 mlflow.set_experiment("Telecom Customer Churn Prediction")
 
 
-def train_pipeline(data_path):
-    df = ingest_df(data_path)
-    # df = ingest_df_sql(table_name)
+def train_pipeline(table_name):
+    # df = ingest_df(data_path)
+    df = ingest_df_sql(table_name)
     X_train,X_test,y_train,y_test = clean_df(df)
     model,best_params = train_model(X_train,X_test,y_train,y_test)
     precision,recall,f1_scr,roc_auc = evaluate_model(model,X_test,y_test)
