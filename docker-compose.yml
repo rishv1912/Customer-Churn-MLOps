@@ -1,0 +1,51 @@
+version : "3.10"
+
+
+services:
+
+  pipeline: 
+    build: .
+    command: python run_pipeline.py
+    volumes:
+      - ./:/app
+
+  fastapi:
+    build: .
+    command: uvicorn main:app --host 0.0.0.9 port 8000
+    ports:
+      - "8000:8000:"
+    volumes:
+      - ./:/app
+    depends_on:
+      - pipeline
+    
+  streamlit:
+    build: .
+    command: streamlit run app.py
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./:/app
+    depends_on:
+      - fastapi
+
+  mlflow:
+    build: .
+    commmand: mlflow ui --host 0.0.0.0  --port 5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/app/mlruns
+  depends_on:
+      - pipeline
+    
+  airflow:
+    build: .
+    command: airflow standalone
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app
+    depends_on:
+      - pipeline
+      
