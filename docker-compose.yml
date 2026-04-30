@@ -1,4 +1,4 @@
-version : "3.10"
+version : "3.8"
 
 
 services:
@@ -11,9 +11,9 @@ services:
 
   fastapi:
     build: .
-    command: uvicorn main:app --host 0.0.0.9 port 8000
+    command: uvicorn main:app --reloads
     ports:
-      - "8000:8000:"
+      - "8000:8000"
     volumes:
       - ./:/app
     depends_on:
@@ -27,16 +27,16 @@ services:
     volumes:
       - ./:/app
     depends_on:
-      - fastapi
+      - pipeline
 
   mlflow:
     build: .
-    commmand: mlflow ui --host 0.0.0.0  --port 5000
+    command: mlflow ui 
     ports:
       - "5000:5000"
     volumes:
       - ./mlruns:/app/mlruns
-  depends_on:
+    depends_on:
       - pipeline
     
   airflow:

@@ -60,7 +60,7 @@ class PrecisionScore(Evaluation):
     def calculate_score(self,y_true,y_pred):
         try:
             logging.info("Entered the calculate_score method of the PrecisionScore class")
-            precision_scr = f1_score(y_true,y_pred)
+            precision_scr = precision_score(y_true,y_pred)
             logging.info(f"The Precision score is {precision_scr}")
             return precision_scr
         
@@ -70,12 +70,12 @@ class PrecisionScore(Evaluation):
 
 
 class RocAucScore(Evaluation):
-    def calculate_score(self,y_true,y_pred):
+    def calculate_score(self,y_true,y_prob):
         try:
             logging.info("Entered the calculate_score method of the RocAucScore class")
-            roc_auc_scr = roc_auc_score(y_true,y_pred)
+            roc_auc_scr = roc_auc_score(y_true,y_prob)
             logging.info(f"The Precision score is {roc_auc_scr}")
-            return roc_auc_score
+            return roc_auc_scr
         
         except Exception as e:
             logging.error(f"Exception occured in calculate_score method of RocAucScore class. Exception {e}")
