@@ -42,7 +42,7 @@ def train_model(
             estimator=clf,
             param_grid=param_grid_dt,
             scoring='f1',
-            n_jobs=7,
+            n_jobs=4,
             cv=5,
         )
 
