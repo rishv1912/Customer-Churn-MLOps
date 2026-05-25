@@ -4,14 +4,13 @@ import numpy as np
 import pandas as pd
 import json
 import requests
+import os
 
 st.title("Customer Churn Prediction")
 
 
 
-model = joblib.load('model.pkl')
 
-print(type(model))
 # Numeric Inputs
 account_length = st.number_input("Account Length (days)", min_value=0, step=1, help="How long the customer has been with the company.")
 area_code = st.number_input("Area Code", min_value=100, max_value=999, step=1, help="Three-digit area code of the customer's phone number.")
@@ -68,7 +67,7 @@ inputs ={
     "total_day_minutes" : total_day_minutes, 
     "total_day_calls" : total_day_calls, 
     "total_eve_minutes" : total_eve_minutes, 
-    "total_eve_calls" : total_day_calls,
+    "total_eve_calls" : total_eve_calls,
     "total_night_minutes" : total_night_minutes, 
     "total_night_calls": total_night_calls, 
     "total_intl_minutes" : total_intl_minutes, 
@@ -81,8 +80,12 @@ inputs ={
 if st.button("Predict"):
     # prediction = model.predict(features)
     # st.write(f"The predicted class is: {'Churn' if prediction[0] else 'Not Churn'}")
-    url = "http://127.0.0.1:8000/predict"
-    response = requests.post(url=url,data = json.dumps(inputs))
+    is_docker = os.path.exists("/.dockerenv")
+    if is_docker:
+        url = "http://fastapi:8000/predict" 
+    else:
+        url = "http://127.0.0.1:8000/predict" 
+    response = requests.post(url=url,json=inputs)
     
     if response.status_code == 200:
         result = response.json()
@@ -91,6 +94,7 @@ if st.button("Predict"):
         probability = round(result["churn_probability"] * 100,2)
         
         st.write(f"Churn : {churn_text}")
+        st.write(f"Churn Probability : {probability}")
     
     else:
         st.error("Error: Unable to Predict, Try again") 

@@ -1,51 +1,66 @@
-version : "3.8"
-
+# version : "3.9"
 
 services:
-
-  pipeline: 
-    build: .
-    command: python run_pipeline.py
-    volumes:
-      - ./:/app
-
-  fastapi:
-    build: .
-    command: uvicorn main:app --reloads
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./:/app
-    depends_on:
-      - pipeline
-    
-  streamlit:
-    build: .
-    command: streamlit run app.py
-    ports:
-      - "8501:8501"
-    volumes:
-      - ./:/app
-    depends_on:
-      - pipeline
-
-  mlflow:
-    build: .
-    command: mlflow ui 
-    ports:
-      - "5000:5000"
+  mlflow: 
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
+    container_name: mlflow
     volumes:
       - ./mlruns:/app/mlruns
-    depends_on:
-      - pipeline
+    command: mlflow ui --host 0.0.0.0 --port 5001 --backend-store-uri file:///app/mlruns
+    ports:
+      - "5001:5001"
     
+
   airflow:
-    build: .
-    command: airflow standalone
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    container_name: airflow
+    environment:
+      - PYTHONPATH=/app
+    command : >
+      bash -c "
+      airflow db migrate &&
+      airflow users list | grep mark42 || airflow users create --username mark42 --firstname tony --lastname stark --role Admin --email admin@stark.ind --password admin &&
+      airflow standalone
+      "
     ports:
       - "8080:8080"
     volumes:
-      - ./:/app
+      - ./airflow/dags:/opt/airflow/dags
+      - .:/app
+      - ./mlruns:/app/mlruns
     depends_on:
-      - pipeline
-      
+      - mlflow
+
+
+
+
+  # fastapi:
+  #   image: churn-project
+  #   container_name: fastapi
+  #   command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./:/app
+  #     - ./mlruns:/app/mlruns
+  #   depends_on:
+  #     - mlflow
+    
+  # streamlit:
+  #   image: churn-project
+  #   container_name: streamlit
+  #   command: streamlit run streamlitapp.py --server.port 8501 --server.address 0.0.0.0
+  #   ports:
+  #     - "8501:8501"
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - fastapi
+
+    
+# ports:
+#   - "HOST_PORT:CONTAINER_PORT"

@@ -3,8 +3,38 @@ from enum import Enum
 from pydantic import BaseModel,validator
 import pickle
 import joblib
+import pandas as pd
 
-model = joblib.load("churn_model.pkl")
+import mlflow
+import os 
+
+
+# is_docker = os.path.exists("/.dockerenv")
+
+# if is_docker :
+#     mlflow.set_tracking_uri("file:///app/mlruns")
+# else:
+#     mlflow.set_tracking_uri("file:///Users/sanjayprajapati/Documents/Super 30 projects/Customer-Churn/mlruns")
+    
+# model = mlflow.sklearn.load_model("models:/Customer Churn tracing/latest")
+
+
+is_docker = os.path.exists("/.dockerenv")
+
+if is_docker:
+    # Load directly — bypass registry ✅
+    mlflow.set_tracking_uri(
+        "file:///app/mlruns"
+    )
+    model = mlflow.sklearn.load_model("models:/Customer Churn tracing/latest")
+else:
+    # Use registry locally ✅
+    mlflow.set_tracking_uri(
+        "file:///Users/sanjayprajapati/Documents/Super 30 projects/Customer-Churn/mlruns"
+    )
+    model = mlflow.sklearn.load_model("models:/Customer Churn tracing/latest")
+
+# model = joblib.load("churn_model.pkl")
 
 app = FastAPI()
 
@@ -25,46 +55,37 @@ class CustomerData(BaseModel):
     total_intl_calls : int              
     number_customer_service_calls :int
 
-    # from pydantic library
-    # @validator("voice_mail_plan","international_plan")
-    # def validate_yes_no(cls,value):
-    #     if value.lower() in ["yes","y"]:
-    #         return 1
-    #     elif value.lower() in ["no","n"]:
-    #         return 0
-    #     else:
-    #         raise ValueError("Input must be 'Yes' or 'No'")
-
-# @app.get('/')
-# async def root():
-#     return {"message": "Customer Churn Prediction"}
 
 @app.post("/predict")
 async def predict_churn(data : CustomerData):
-    input_features= [
-        [
-            data.account_length,
-            data.area_code,
-            data.international_plan_binary,
-            data.voice_mail_plan_binary,
-            data.number_vmail_messages,
-            data.total_day_minutes,
-            data.total_day_calls,
-            data.total_eve_minutes,
-            data.total_eve_calls,
-            data.total_night_minutes,
-            data.total_night_calls,
-            data.total_intl_minutes,
-            data.total_intl_calls,
-            data.number_customer_service_calls
+    try:
+        input_features= pd.DataFrame(
+            [{
+                "account_length" : data.account_length, 
+                "area_code" : data.area_code, 
+                "international_plan" : data.international_plan_binary, 
+                "voice_mail_plan": data.voice_mail_plan_binary,
+                "number_vmail_messages" : data.number_vmail_messages,
+                "total_day_minutes" : data.total_day_minutes, 
+                "total_day_calls" : data.total_day_calls, 
+                "total_eve_minutes" : data.total_eve_minutes, 
+                "total_eve_calls" : data.total_eve_calls,
+                "total_night_minutes" : data.total_night_minutes, 
+                "total_night_calls": data.total_night_calls, 
+                "total_intl_minutes" : data.total_intl_minutes, 
+                "total_intl_calls" :data.total_intl_calls,
+                "number_customer_service_calls" :data.number_customer_service_calls
 
-        ]
-    ]
+            }
+        ])
 
-    prediction = model.predict(input_features)
-    churn_probability = model.predict_proba(input_features)[0][1]
+        prediction = model.predict(input_features)
+        churn_probability = model.predict_proba(input_features)[0][1]
 
-    return {
-        "churn" : bool(prediction[0]),
-        "churn_probability" : churn_probability
-    }
+        return {
+            "churn" : bool(prediction[0]),
+            "churn_probability" : float(churn_probability)
+        }
+    except Exception as e :
+        raise HTTPException(status_code=500,detail =(str(e)))
+        

@@ -6,6 +6,7 @@ mlflow
 psycopg2-binary
 SQLAlchemy
 fastapi
+streamlit
 uvicorn
 requests
 python-dotenv

@@ -9,10 +9,19 @@ from steps.clean_data import clean_df
 from steps.model_train import train_model
 from steps.evaluation import evaluate_model
 
-# mlflow.set_tracking_uri("http://127.0.0.1:5000")
-mlflow.set_tracking_uri("file:///Users/sanjayprajapati/Documents/Super 30 projects/Customer-Churn/mlruns")
-mlflow.set_experiment("Telecom Customer Churn Prediction")
+# # mlflow.set_tracking_uri("http://127.0.0.1:5000")
+# mlflow.set_tracking_uri(f"file://{os.path.abspath('mlruns')}")
+# # mlflow.set_tracking_uri("file:///Users/sanjayprajapati/Documents/Super 30 projects/Customer-Churn/mlruns")
+is_docker = os.path.exists("/.dockerenv")
 
+if is_docker:
+    
+    mlflow.set_tracking_uri("file:///app/mlruns")
+    mlflow.set_experiment("Telecom Customer Churn Prediction Docker")  
+else:
+    mlflow.set_tracking_uri(f"file://{os.path.abspath('mlruns')}")
+
+    mlflow.set_experiment("Telecom Customer Churn Prediction")  
 
 def train_pipeline(source):
     if os.path.isfile(source):
@@ -58,16 +67,25 @@ def train_pipeline(source):
         mlflow.log_metric("recall",recall)
         mlflow.log_metric("f1score",f1_scr)
         mlflow.log_metric("roc_auc",roc_auc)
+        
+        is_docker = os.path.exists("/.dockerenv")
+         
+        mlflow.set_tags({
+            "source": "docker" if is_docker else "locally",
+            "Environment" : "docker" if is_docker else "local-machine",
+            "Developer": "Rishav",
+            "Training Info":"Decision tree classifier for Customer Churn",
+            
+        })
 
-        mlflow.set_tag("Engineer", "Rishav")  
-        mlflow.set_tag("Training Info","Decision tree classifier for Customer Churn")
+        # mlflow.set_tag("file path","using file:///Users/sanjayprajapati/Documents/Super 30 projects/Customer-Churn/mlruns")
         
 
         signature = infer_signature(X_train,model.predict(X_train))
 
         model_info = mlflow.sklearn.log_model(
             sk_model = model,
-            artifact_path="customer_churn",
+            name="customer_churn",
             signature=signature,
             input_example=X_train.head(5),
             registered_model_name = "Customer Churn tracing"
@@ -79,3 +97,4 @@ def train_pipeline(source):
         # mlflow.pyfunc.load_model(model_info.model_uri)
 
         # mlflow.end_run()
+

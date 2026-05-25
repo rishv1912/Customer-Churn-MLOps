@@ -4,7 +4,6 @@ WORKDIR /app
 COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 8000 8501 5000 8080
+# EXPOSE 8000 8501 5000 8080
 
-CMD ["bash"]
-
+CMD ["python","run_pipeline.py"] 
