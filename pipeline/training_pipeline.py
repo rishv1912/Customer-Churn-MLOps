@@ -89,7 +89,7 @@ def train_pipeline(source):
             name="customer_churn",
             signature=signature,
             input_example=X_train.head(5),
-            registered_model_name = "Customer Churn tracing"
+            registered_model_name = REGISTERED_MODEL_NAME
         )
 
         # mlflow.set_logged_model_tags(

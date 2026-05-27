@@ -26,7 +26,7 @@ if is_docker:
     mlflow.set_tracking_uri(
         "file:///app/mlruns"
     )
-    model = mlflow.sklearn.load_model("models:/Customer Churn tracing/latest")
+    model = mlflow.sklearn.load_model("models:/Customer Churn Tracing Docker/latest")
 else:
     # Use registry locally ✅
     mlflow.set_tracking_uri(
