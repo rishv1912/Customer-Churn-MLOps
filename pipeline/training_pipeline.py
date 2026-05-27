@@ -18,10 +18,11 @@ if is_docker:
     
     mlflow.set_tracking_uri("file:///app/mlruns")
     mlflow.set_experiment("Telecom Customer Churn Prediction Docker")  
+    REGISTERED_MODEL_NAME = "Customer Churn Tracing Docker"
 else:
     mlflow.set_tracking_uri(f"file://{os.path.abspath('mlruns')}")
-
     mlflow.set_experiment("Telecom Customer Churn Prediction")  
+    REGISTERED_MODEL_NAME = "Customer Churn tracing"
 
 def train_pipeline(source):
     if os.path.isfile(source):

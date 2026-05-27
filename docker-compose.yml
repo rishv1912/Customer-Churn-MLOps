@@ -38,28 +38,32 @@ services:
 
 
 
-  # fastapi:
-  #   image: churn-project
-  #   container_name: fastapi
-  #   command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - ./:/app
-  #     - ./mlruns:/app/mlruns
-  #   depends_on:
-  #     - mlflow
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    container_name: fastapi
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+      - ./mlruns:/app/mlruns
+    depends_on:
+      - airflow
     
-  # streamlit:
-  #   image: churn-project
-  #   container_name: streamlit
-  #   command: streamlit run streamlitapp.py --server.port 8501 --server.address 0.0.0.0
-  #   ports:
-  #     - "8501:8501"
-  #   volumes:
-  #     - .:/app
-  #   depends_on:
-  #     - fastapi
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: streamlit
+    command: streamlit run streamlitapp.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501" 
+    volumes:
+      - .:/app
+    depends_on:
+      - fastapi
 
     
 # ports:
